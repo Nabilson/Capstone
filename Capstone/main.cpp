@@ -105,18 +105,19 @@ void AddToOpen(int x, int y, vector<Node> &openList, vector<vector<Node>> &grid)
 	grid[x][y].s = State::kClosed;
 }
 
-bool Compare(const Node a, const Node b)
+bool Compare(const Node& a, const Node& b)
 {
 	
 	int f1 = a.G + a.H; // f1 = g1 + h1
   	int f2 = b.G + b.H; // f2 = g2 + h2
   	
- 	return f1>f2;
+ 	return (f1>f2);
 }
 
 
 void CellSort(vector<Node>* v){
-
+		
+	//cout<<(*v)[2].H<<"\n";
 	sort(v->begin(), v->end(), Compare);
 
 }
@@ -207,7 +208,7 @@ int WinMain(int argc, char** argv) {
 	
 //	cout<<finishNode.s<<"\n";
 	
-//	drawGrid(model.Grid, model.nObstacles,startNode,finishNode, path);
+	drawGrid(model.Grid, model.nObstacles,startNode,finishNode, path);
 	
 //	if(model.Grid[goal[0]][goal[1]].s== State::kClosed)
 //		cout<<"kClosed \n";

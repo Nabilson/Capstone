@@ -17,3 +17,9 @@ and the obstacles in different colors.
 
 The line of code that draws the path has been commented out on line 77 of main.cpp.
 
+*****************************************************************************
+Instructions on compiling the code
+
+SDL is the only library required by the code.
+
+
