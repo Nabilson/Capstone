@@ -1,5 +1,6 @@
 #include "Node.cpp"
-#include "vector"
+#include <vector>
+#include <list>
 #include <SDL2/SDL.h>
 
 const int grid_w =   640.0;
@@ -19,17 +20,17 @@ class Model: public Node{
 		
 	vector<vector<Node>> Grid;
 	
-	int mnodes = grid_w/w;
-	int nnodes = grid_h/h;
+	int mnodes = grid_w/w; //16
+	int nnodes = grid_h/h; //12
 	
 	vector<Node> nObstacles{0};
 	
 	void makeGrid(){
 					
-		for(int j =0; j<=nnodes-1; j++)
+		for(int i =0; i<=mnodes-1; i++)
 		{
 			vector<Node> temp;
-		for(int i =0; i<=mnodes-1; i++)
+		for(int j =0; j<=nnodes-1; j++)
 		{
 			Node n((i),(j));
 			temp.push_back(n);	
@@ -40,25 +41,25 @@ class Model: public Node{
 	
 	void defineObstacles(){
 //					
-		Grid[5][8].s = State::kObstacle;
-		Grid[5][9].s = State::kObstacle;
-		Grid[5][10].s = State::kObstacle;
-		Grid[5][11].s = State::kObstacle;
-		Grid[5][12].s = State::kObstacle;
+		Grid[8][5].s = State::kObstacle;
+		Grid[9][5].s = State::kObstacle;
+		Grid[10][5].s = State::kObstacle;
+		Grid[11][5].s = State::kObstacle;
+		Grid[12][5].s = State::kObstacle;
 		
-		Grid[6][12].s = State::kObstacle;
-		Grid[7][12].s = State::kObstacle;
-		Grid[8][12].s = State::kObstacle;
+		Grid[13][6].s = State::kObstacle;
+		Grid[13][7].s = State::kObstacle;
+		Grid[13][8].s = State::kObstacle;
 		
-		nObstacles.push_back(Grid[5][8]);
-		nObstacles.push_back(Grid[5][9]);
-		nObstacles.push_back(Grid[5][10]);
-		nObstacles.push_back(Grid[5][11]);
-		nObstacles.push_back(Grid[5][12]);
+		nObstacles.push_back(Grid[8][5]);
+		nObstacles.push_back(Grid[9][5]);
+		nObstacles.push_back(Grid[10][5]);
+		nObstacles.push_back(Grid[11][5]);
+		nObstacles.push_back(Grid[12][5]);
 		
-		nObstacles.push_back(Grid[6][12]);
-		nObstacles.push_back(Grid[7][12]);
-		nObstacles.push_back(Grid[8][12]);				
+		nObstacles.push_back(Grid[13][6]);
+		nObstacles.push_back(Grid[13][7]);
+		nObstacles.push_back(Grid[13][8]);				
 	}
 	
 	

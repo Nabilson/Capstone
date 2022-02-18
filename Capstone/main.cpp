@@ -82,11 +82,9 @@ void drawGrid(vector<vector<Node>> &grid, vector<Node> &obs, Node &start, Node &
 
 int Heuristic(int x_1, int y_1, int x_2, int y_2)
 {
-  int distance;
   
-  distance =  abs(x_2 - x_1) + abs(y_2 - y_1);
-  
-return distance;
+return abs(x_2 - x_1) + abs(y_2 - y_1);
+
 }
 
 bool CheckValidCell(int x, int y, vector<vector<Node>> &grid) {
@@ -100,28 +98,31 @@ bool CheckValidCell(int x, int y, vector<vector<Node>> &grid) {
 
 void AddToOpen(int x, int y, vector<Node> &openList, vector<vector<Node>> &grid){
 	
-	Node& node = grid[x][y];
-	openList.push_back(node);
+	//Node& node = grid[x][y];
+	
+	openList.push_back(grid[x][y]);
 	
 	grid[x][y].s = State::kClosed;
 }
 
-bool Compare(Node a, Node b)
+bool Compare(const Node a, const Node b)
 {
+	
 	int f1 = a.G + a.H; // f1 = g1 + h1
   	int f2 = b.G + b.H; // f2 = g2 + h2
   	
-  	return f1>f2;
+ 	return f1>f2;
 }
 
 
-void CellSort(vector<Node> *v){
-	
+void CellSort(vector<Node>* v){
+
 	sort(v->begin(), v->end(), Compare);
+
 }
 
 
-void ExpandNeighbors(Node &current, int goal[2], vector<Node> &openlist, vector<vector<Node>> &grid) {
+void ExpandNeighbors(Node &current, Node& finish, vector<Node> &openlist, vector<vector<Node>> &grid) {
   // Get current node's data.
   int x = current.x;
   int y = current.y;
@@ -129,52 +130,59 @@ void ExpandNeighbors(Node &current, int goal[2], vector<Node> &openlist, vector<
   
   // Loop through current node's potential neighbors.
   for (int i = 0; i < 4; i++) {
-  	
+  	  	
   	int x2 = x + delta[i][0];
   	int y2 = y + delta[i][1];
   	
   	if (CheckValidCell(x2, y2, grid)) {
       // Increment g value and add neighbor to open list.
-      int g2 = g + 1;
-      int h2 = Heuristic(x2, y2, goal[0], goal[1]);
+      grid[x2][y2].G = g + 1;
+	  grid[x2][y2].H = Heuristic(x2, y2, finish.x, finish.y);  
+    
       AddToOpen(x2, y2, openlist, grid);
+     // cout<<x2 <<" "<<y2<<" "<<grid[x2][y2].G<<" "<<grid[x2][y2].H<<"\n";
     }  	
   } 
-  
 }
 
-vector<Node> Search(vector<vector<Node>> &grid, int init[2], int goal[2], vector<Node>& path ){
-	
+vector<Node> Search(vector<vector<Node>> &grid, Node& start, Node& finish, vector<Node>& path ){
+  // Create the vector of open nodes.	
 	vector<Node> open {};
 	
-	grid[ init[0] ][ init[1] ].G = 0;
-	grid[ init[0] ][ init[1] ].H = Heuristic(init[0],init[1],goal[0],goal[1]);
+	start.G = 0;
+	start.H = Heuristic(start.x,start.y,finish.x,finish.y);
 		
-	AddToOpen(init[0],init[1],open,grid);
+	AddToOpen(start.x,start.y,open,grid);
 	
 	while(open.size()>0){
-	
+		// Get the next node
 		CellSort(&open);
+			
+		for(Node n: open)
+		cout<<n.x <<" "<<n.y<<" "<<n.G<<" "<<n.H<<"\n";
 	
+		cout<<"\n";
 		Node& current = open.back();
 		open.pop_back();
 		current.s= State::kPath;
+		
 		path.push_back(current);
 		
-		if(current.x == goal[0]  && current.y== goal[1] ){	
+		if(current.x == finish.x  && current.y== finish.y ){	
 		
-			cout<<"path size "<<path.size()<<"\n";		
+			//cout<<current.x <<" "<<current.y<<"\n";
+			//cout<<"path size "<<path.size()<<"\n";		
 			cout<<"Path found \n";
 			cout<<current.x <<" "<<current.y<<"\n";
+			
 			return path;
 		}
 		
-		cout<<current.x <<" "<<current.y<<"\n";
+		//cout<<current.x <<" "<<current.y<<" "<<current.G<<" "<<current.H<<" "<<"current"<<"\n";
 		
-		ExpandNeighbors(current, goal, open, grid);		
+		ExpandNeighbors(current, finish, open, grid);		
 	}
-	
-	
+		
 	cout<<"No path found!" <<"\n";
 	return path;
 }
@@ -182,8 +190,8 @@ vector<Node> Search(vector<vector<Node>> &grid, int init[2], int goal[2], vector
 int WinMain(int argc, char** argv) {
 	
 	//set the start and end nodes
-	int init[2]{0,0};
-  	int goal[2]{10,3};
+	int init[2]{1,1};
+  	int goal[2]{2,5};
 	
 	//Define the Model
 	Model model;
@@ -195,9 +203,11 @@ int WinMain(int argc, char** argv) {
 	Node startNode(model.Grid[init[0]][init[1]]);
 	Node finishNode(model.Grid[goal[0]][goal[1]]);
 	
-	auto solution = Search (model.Grid, init, goal, path);	
+	Search (model.Grid, startNode, finishNode, path);
 	
-	drawGrid(model.Grid, model.nObstacles,startNode,finishNode, path);
+//	cout<<finishNode.s<<"\n";
+	
+//	drawGrid(model.Grid, model.nObstacles,startNode,finishNode, path);
 	
 //	if(model.Grid[goal[0]][goal[1]].s== State::kClosed)
 //		cout<<"kClosed \n";
@@ -207,7 +217,7 @@ int WinMain(int argc, char** argv) {
 //		cout<<"kObstacle \n";
 //	else if(model.Grid[goal[0]][goal[1]].s== State::kPath)
 //		cout<<"kPath \n";
-	
+//	
 //	cout<<model.Grid[init[0]][init[1]].H<<endl;
 
 //	if(model.Grid[5][9].s == State::kObstacle )
