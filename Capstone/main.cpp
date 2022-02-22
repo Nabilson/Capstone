@@ -188,7 +188,7 @@ vector<Node> Search(vector<vector<Node>> &grid, Node& start, Node& finish, vecto
 	return path;
 }
 
-int WinMain(int argc, char** argv) {
+int main(int argc, char** argv) {
 	
 	//set the start and end nodes
 	int init[2]{1,1};
@@ -226,6 +226,6 @@ int WinMain(int argc, char** argv) {
 //	
 //	cout<<model.Grid[0].size();
 
-	system("pause");
+//	system("pause");
 	return 0;
 }
