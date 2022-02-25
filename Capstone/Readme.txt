@@ -2,7 +2,7 @@ The code makes use of the A* algorithm for path tracking similar to part 2 of th
 c++ program on Udacity.
 
 It uses Nodes to represent the grid. For example, Grid[0][0] is the top left Node. In
-it's current configuration there are 12x16 Nodes.(see grid.png)
+it's current configuration there are 16x12 Nodes.(see grid.png)
 
 In the main function the start and finish nodes are given
 
@@ -20,6 +20,6 @@ The line of code that draws the path has been commented out on line 77 of main.c
 *****************************************************************************
 Instructions on compiling the code
 
-SDL is the only library required by the code.
+SDL is the only external library required by the code.
 
 

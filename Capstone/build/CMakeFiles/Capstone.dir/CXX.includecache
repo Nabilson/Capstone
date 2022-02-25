@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/workspace/Capstone/Capstone/src/Model.cpp
+Node.cpp
+/home/workspace/Capstone/Capstone/src/Node.cpp
+vector
+-
+list
+-
+SDL2/SDL.h
+-
+
+/home/workspace/Capstone/Capstone/src/Node.cpp
+
+/home/workspace/Capstone/Capstone/src/main.cpp
+iostream
+-
+Model.cpp
+/home/workspace/Capstone/Capstone/src/Model.cpp
+iostream
+-
+algorithm
+-
+SDL2/SDL.h
+/home/workspace/Capstone/Capstone/src/SDL2/SDL.h
+

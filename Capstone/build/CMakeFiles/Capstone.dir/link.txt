@@ -1,0 +1,1 @@
+/usr/bin/g++-7  -std=c++17 -std=c++17 -pthread   CMakeFiles/Capstone.dir/src/Model.cpp.o CMakeFiles/Capstone.dir/src/Node.cpp.o CMakeFiles/Capstone.dir/src/main.cpp.o  -o Capstone -lSDL2 
