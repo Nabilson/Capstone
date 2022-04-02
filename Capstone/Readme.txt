@@ -1,7 +1,7 @@
 The code makes use of the A* algorithm for path tracking similar to part 2 of the 
 c++ program on Udacity.
 
-The code contains 2 classes. Node which contains the attributes for the nodes and Model
+The code contains 2 classes. Node which contains the attributes for the nodes, and Model
 which builds the grid. (Rubric point) 
 
 It uses Nodes to represent the grid. For example, Grid[0][0] is the top left Node. In
