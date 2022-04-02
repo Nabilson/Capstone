@@ -11,6 +11,9 @@ class Node
 	explicit Node(int a, int b){
 		x=a;
 		y=b;
+		s= State::kEmpty;
+		G=0;
+		H=0;
 	}	
 	
 	 Node operator=(Node other){
@@ -26,6 +29,6 @@ class Node
 	const int w=40;
 	const int h=40 ;
 	
-	State s{State::kEmpty};
+	State s;
 	
 };
